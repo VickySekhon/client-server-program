@@ -1,0 +1,25 @@
+# docker-compose.yml
+version: '3'
+
+services:
+  server:
+    build: 
+      context: ./server
+    ports:
+      - "5000:5000"
+    networks:
+      - chat-network
+
+  client:
+    build: 
+      context: ./client
+    depends_on:
+      - server
+    networks:
+      - chat-network
+    tty: true
+    stdin_open: true
+
+networks:
+  chat-network:
+    driver: bridge
